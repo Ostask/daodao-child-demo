@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { publicPath } from '@/utils/common.js'
 import * as THREE from 'three/build/three.module.js';
 
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
@@ -82,7 +83,7 @@ export default {
 
             };
 
-            const urls = genCubeUrls( 'http://192.168.2.122:10300/imgs/', '.png' );
+            const urls = genCubeUrls( publicPath +'/imgs/', '.png' );
 
             new THREE.CubeTextureLoader().load( urls, function ( cubeTexture ) {
 

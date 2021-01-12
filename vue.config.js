@@ -1,7 +1,9 @@
 const path = require("path");
 const packageName = require('./package.json').name;
+const publicPath = process.env.VUE_APP_PUBLIC_PATH;
 
 module.exports = {
+  publicPath: publicPath,
   devServer: {
     // 监听端口
     port: 10300,
@@ -11,6 +13,28 @@ module.exports = {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
+  },
+  chainWebpack: (config) => {
+    const fontRule = config.module.rule('fonts');
+    fontRule.uses.clear();
+    fontRule
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: 'fonts/[name].[hash:8].[ext]',
+        publicPath
+      })
+      .end()
+    const imgRule = config.module.rule('images');
+    imgRule.uses.clear();
+    imgRule
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        name: 'imgs/[name].[hash:8].[ext]',
+        publicPath
+      })
+      .end()
   },
   configureWebpack: {
     resolve: {
