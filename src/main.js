@@ -13,6 +13,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
 import "@/utils/request"
 
+import { util } from '@/utils/common.js'
 
 const packageName = require('../package.json').name;
 
@@ -36,6 +37,17 @@ let router = null;
  */
 function render(props) {
   if (props) {
+    for(let plugin in props.plugin){
+      //注册插件
+      Vue.use(props.plugin[plugin]);
+    }
+    for(let component in props.components){
+      Vue.component(component, props.components[component])
+    }
+    for(let fuc in props.utils){
+      util[fuc] = props.utils[fuc]
+    }
+
     // 注入 actions 实例
     actions.setActions(props);
   }

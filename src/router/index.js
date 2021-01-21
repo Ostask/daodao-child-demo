@@ -31,6 +31,11 @@ const routes = [
         path:prefix + "/charts",
         name:"Charts",
         component:() => import('@/pages/charts.vue')
+    },
+    {
+        path:prefix + "/public",
+        name:"Public",
+        component:() => import('@/pages/public.vue')
     }
 ]
 
